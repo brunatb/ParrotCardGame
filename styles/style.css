@@ -1,5 +1,6 @@
 body {
   width: 100%;
+  padding: 0 20px;
   max-height: 100vh;
   background-color: #eef9bf;
   font-family: "Roboto", sans-serif;
@@ -58,4 +59,10 @@ ul {
 
 .rotate-front {
   transform: rotateY(-180deg);
+}
+
+@media (max-width: 400px) {
+  body {
+    padding: 0 40px;
+  }
 }

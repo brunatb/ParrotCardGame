@@ -8,10 +8,7 @@ function startGame(){
   }
 
   cardsDistribution(numberOfCards);
-  clockId = setInterval(() => {
-    const clock = document.querySelector(".clock span");
-    clock.innerHTML = parseInt(clock.innerHTML) + 1;
-  }, 1000);
+  clockId = setInterval(incrementClock, 1000);
 }
 
 function cardsDistribution(numberOfCards) {
@@ -145,6 +142,11 @@ function finishGame(){
 
 function comparador() { 
 	return Math.random() - 0.5; 
+}
+
+function incrementClock() {
+  const clock = document.querySelector(".clock span");
+  clock.innerHTML = parseInt(clock.innerHTML) + 1;
 }
 
 startGame();

@@ -27,7 +27,7 @@ function showCards(selectedParrots) {
 
   for(let i = 0; i < selectedParrots.length/2; i++) {
     upRow.innerHTML+= `
-      <li class="card">
+      <li class="card" onclick="turnCard(this)">
         <div class="face front-face"> 
           <img src="./images/front.png" alt="Imagem de  papagaio">
         </div>
@@ -40,7 +40,7 @@ function showCards(selectedParrots) {
 
   for(let j = selectedParrots.length/2; j < selectedParrots.length; j++){
     downRow.innerHTML+= `
-      <li class="card">
+      <li class="card" onclick="turnCard(this)">
         <div class="face front-face"> 
           <img src="./images/front.png" alt="Imagem de  papagaio">
         </div>
@@ -50,6 +50,59 @@ function showCards(selectedParrots) {
       </li>
     `
   }
+}
+
+function turnCard(card, check=true) {
+  card.classList.toggle("turned");
+  const frontFace = card.querySelector(".front-face");
+  const backFace = card.querySelector(".back-face");
+
+  frontFace.classList.toggle("rotate-front");
+  backFace.classList.toggle("rotate-back");
+
+  if(check) checkCards();
+}
+
+function checkCards() {
+  const turnedCards = document.querySelectorAll(".turned");
+
+  if(turnedCards.length === 1){
+    turnedCards[0].setAttribute("onclick","");
+    return;
+  }
+
+  disableOrEnableCards("disable");
+
+  const firstCardSrc = turnedCards[0].querySelector(".back-face img").src;
+  const secondCardSrc = turnedCards[1].querySelector(".back-face img").src;
+
+  if(firstCardSrc === secondCardSrc) {
+    turnedCards[0].classList.remove("turned");
+    turnedCards[1].classList.remove("turned");
+    disableOrEnableCards("enable");
+    turnedCards[0].setAttribute("onclick","");
+    turnedCards[1].setAttribute("onclick","");
+  }else {
+    setTimeout(turnCard, 1000, turnedCards[0], false);
+    setTimeout(turnCard, 1000, turnedCards[1], false);
+    setTimeout(disableOrEnableCards, 1000, "enable");
+  }
+
+  
+}
+
+function disableOrEnableCards(action) {
+  const allCards = document.querySelectorAll(".card");
+
+  if(action === "disable") {
+    for(let i = 0; i < allCards.length; i++) {
+      allCards[i].setAttribute("onclick", "")
+    }
+  } else {
+    for(let i = 0; i < allCards.length; i++) {
+      allCards[i].setAttribute("onclick", "turnCard(this)")
+    }
+  } 
 }
 
 function comparador() { 

@@ -31,7 +31,8 @@ function cardsDistribution(numberOfCards) {
 function showCards(selectedParrots) {
   const upRow = document.querySelector(".up-row");
   const downRow = document.querySelector(".down-row");
-
+  upRow.innerHTML = "";
+  downRow.innerHTML = "";
   for(let i = 0; i < selectedParrots.length/2; i++) {
     upRow.innerHTML+= `
       <li class="card" onclick="turnCard(this)">
@@ -125,8 +126,20 @@ function checkEndOfGame() {
     clearInterval(clockId);
     disableOrEnableCards("disable");
 
-    const clock = document.querySelector(".clock span");
-    setTimeout(alert, 1000, `Você ganhou em ${numberOfMoves} jogadas e ${clock.innerHTML} segundos`)
+    setTimeout(finishGame, 1000, )
+  }
+}
+
+function finishGame(){
+  const clock = document.querySelector(".clock span");
+  alert(`Você ganhou em ${numberOfMoves} jogadas e ${clock.innerHTML} segundos`);
+
+  const answer = prompt("Gostaria de jogar novamente?");
+
+  if(answer === 'sim'){
+    clock.innerHTML = '0';
+    numberOfMoves = 0;
+    startGame();
   }
 }
 

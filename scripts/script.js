@@ -1,3 +1,5 @@
+let numberOfMoves = 0;
+
 function startGame(){
   let numberOfCards = prompt("Com quantas cartas você gostaria de jogar?");
   while(numberOfCards < 4 || numberOfCards > 14 || numberOfCards % 2 !== 0) {
@@ -65,7 +67,8 @@ function turnCard(card, check=true) {
 
 function checkCards() {
   const turnedCards = document.querySelectorAll(".turned");
-
+  numberOfMoves++;
+  console.log(numberOfMoves)
   if(turnedCards.length === 1){
     turnedCards[0].setAttribute("onclick","");
     return;
@@ -79,16 +82,21 @@ function checkCards() {
   if(firstCardSrc === secondCardSrc) {
     turnedCards[0].classList.remove("turned");
     turnedCards[1].classList.remove("turned");
+
+    turnedCards[0].classList.add("matched");
+    turnedCards[1].classList.add("matched");
+
     disableOrEnableCards("enable");
     turnedCards[0].setAttribute("onclick","");
     turnedCards[1].setAttribute("onclick","");
+
+    checkEndOfGame()
   }else {
     setTimeout(turnCard, 1000, turnedCards[0], false);
     setTimeout(turnCard, 1000, turnedCards[1], false);
     setTimeout(disableOrEnableCards, 1000, "enable");
   }
 
-  
 }
 
 function disableOrEnableCards(action) {
@@ -103,6 +111,16 @@ function disableOrEnableCards(action) {
       allCards[i].setAttribute("onclick", "turnCard(this)")
     }
   } 
+}
+
+function checkEndOfGame() {
+  const allCards = document.querySelectorAll(".card");
+  const matchedCards = document.querySelectorAll(".matched");
+
+  if(allCards.length === matchedCards.length) {
+    disableOrEnableCards("disable");
+    setTimeout(alert, 1000, `Você ganhou em ${numberOfMoves} jogadas`)
+  }
 }
 
 function comparador() { 

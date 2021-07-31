@@ -1,4 +1,5 @@
 let numberOfMoves = 0;
+let clockId;
 
 function startGame(){
   let numberOfCards = prompt("Com quantas cartas você gostaria de jogar?");
@@ -7,6 +8,10 @@ function startGame(){
   }
 
   cardsDistribution(numberOfCards);
+  clockId = setInterval(() => {
+    const clock = document.querySelector(".clock span");
+    clock.innerHTML = parseInt(clock.innerHTML) + 1;
+  }, 1000);
 }
 
 function cardsDistribution(numberOfCards) {
@@ -68,7 +73,6 @@ function turnCard(card, check=true) {
 function checkCards() {
   const turnedCards = document.querySelectorAll(".turned");
   numberOfMoves++;
-  console.log(numberOfMoves)
   if(turnedCards.length === 1){
     turnedCards[0].setAttribute("onclick","");
     return;
@@ -118,8 +122,11 @@ function checkEndOfGame() {
   const matchedCards = document.querySelectorAll(".matched");
 
   if(allCards.length === matchedCards.length) {
+    clearInterval(clockId);
     disableOrEnableCards("disable");
-    setTimeout(alert, 1000, `Você ganhou em ${numberOfMoves} jogadas`)
+
+    const clock = document.querySelector(".clock span");
+    setTimeout(alert, 1000, `Você ganhou em ${numberOfMoves} jogadas e ${clock.innerHTML} segundos`)
   }
 }
 

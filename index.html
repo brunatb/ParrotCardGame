@@ -20,8 +20,26 @@
     </ul>
     <ul class="down-row">
     </ul>
+    <div class="hidden container">
+      <h1>Melhores Jogadores - x cartas</h1>
+      <div class="table-container">
+        <table>
+          <tr class="fixed-top">
+            <th>Classificação</th>
+            <th>Nome</th>
+            <th>Quantidade de cartas</th>
+            <th>Tempo</th>
+          </tr>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="closeRanking()">Cancelar</button>
+        <button onclick="restartGame()">Recomeçar</button>
+      </div>
+    </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="./scripts/playersRanking.js"></script>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
